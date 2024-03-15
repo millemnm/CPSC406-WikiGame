@@ -6,7 +6,6 @@ Max Miller - maxmiller@chapman.edu
 
 Diego Lopez Ramos - lopezramos@chapman.edu
 
-2317020
 
 ### Proposal:
 
