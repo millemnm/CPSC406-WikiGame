@@ -5,6 +5,10 @@
 Max Miller - maxmiller@chapman.edu
 Diego Lopez Ramos - lopezramos@chapman.edu
 
+### Presentation Link
+
+https://docs.google.com/presentation/d/1tsm4XntdmyxGCJEWxKKwOspHBl3wSrhLYwKZ5r-2z8U/edit?usp=sharing
+
 ### Proposal
 
 To enhance the Wikipedia Game, we propose leveraging ChatGPT to create semantic understanding by reading the start and target articles. By analyzing the starting page links and the entirety of the final page, ChatGPT can identify the most similar links in the first node and create a prioritized list of which links to check first, guiding the program toward the target article more efficiently.
