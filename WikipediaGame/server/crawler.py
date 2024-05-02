@@ -2,14 +2,35 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import re
+from scipy.spatial.distance import cosine
 
 from openai import OpenAI
 
-client = OpenAI(api_key=)
+client = OpenAI(api_key=)  # Fill in your API key
 import os
-from scipy.spatial.distance import cosine
 
-TIMEOUT = 10  # time limit in seconds for the search
+TIMEOUT = 60  # time limit in seconds for the search
+
+def get_embedding(text, model="text-embedding-3-small"):
+    try:
+        response = client.embeddings.create(input=text, model=model)
+        return response.data[0].embedding
+    except Exception as e:
+        print(f"An error occurred while getting embedding: {e}")
+        return None
+
+def rank_topics(base_text, topics):
+    base_embedding = get_embedding(base_text)
+    if base_embedding is None:
+        return []
+    ranked_topics = []
+    for topic in topics:
+        topic_embedding = get_embedding(topic)
+        if topic_embedding is not None:
+            distance = cosine(base_embedding, topic_embedding)
+            ranked_topics.append((topic, distance))
+    ranked_topics.sort(key=lambda x: x[1])  # Sort topics by distance
+    return [topic[0] for topic in ranked_topics]  # Return only topic names in ranked order
 
 def get_links(page_url):
     print(f"Fetching page: {page_url}")
@@ -25,60 +46,34 @@ def get_links(page_url):
 
 def find_path(start_page, finish_page):
     queue = [(start_page, [start_page], 0)]
-    discovered = set([start_page])
+    discovered = set()
     logs = []
-    first_links_texts = []
 
     # breadth first search
     start_time = time.time()
-    while queue and (time.time() - start_time) < TIMEOUT:  
+    elapsed_time = time.time() - start_time
+    while queue and elapsed_time < TIMEOUT:  
         (vertex, path, depth) = queue.pop(0)
-        current_links = set(get_links(vertex)) - discovered
-
-        # Fetch content for ranking if path is found
-        if vertex == finish_page:
-            finish_text = get_page_text(finish_page)
-            for link in current_links:
-                link_text = get_page_text(link)
-                first_links_texts.append((link, link_text))
-            
-            # Compute similarities and sort
-            topics = [text for _, text in first_links_texts]
-            target_text = get_page_text(finish_page)
-            sorted_links = rank_topics(target_text, topics, client)
-
-            return path, sorted_links, time.time() - start_time, len(discovered)
-        
-        for next in current_links:
-            discovered.add(next)
-            queue.append((next, path + [next], depth + 1))
-
-    raise TimeoutErrorWithLogs("Search exceeded time limit.", logs, time.time() - start_time, len(discovered))
-
-
-def get_embedding(text, model="text-embedding-3-small"):
-    try:
-        response = client.embeddings.create(input=text,
-        model=model)
-        return response.data[0].embedding
-    except Exception as e:
-        print(f"An error occurred while getting embedding: {e}")
-        return None
-
-def rank_topics(base_text, topics):
-    base_embedding = get_embedding(base_text)
-    if base_embedding is None:
-        return []
-
-    topic_embeddings = [(topic, get_embedding(topic)) for topic in topics]
-    topic_embeddings = [te for te in topic_embeddings if te[1] is not None]  # Filter out failed embeddings
-
-    # Calculate similarity scores (lower cosine distance means higher similarity)
-    similarities = [(topic, 1 - cosine(base_embedding, emb)) for topic, emb in topic_embeddings]
-
-    # Sort topics based on similarity scores
-    sorted_topics = sorted(similarities, key=lambda x: x[1], reverse=True)
-    return [topic for topic, _ in sorted_topics]
+        for next in set(get_links(vertex)) - discovered:
+            if next == finish_page:
+                log = f"Found finish page: {next}"
+                print(log)
+                logs.append(log)
+                logs.append(f"Search took {elapsed_time} seconds.")
+                print(f"Search took {elapsed_time} seconds.")  # Add a print statement to log the elapsed time
+                logs.append(f"Discovered pages: {len(discovered)}")
+                return path + [next], logs, elapsed_time, len(discovered) # return with success
+            else:
+                log = f"Adding link to queue: {next} (depth {depth})"
+                print(log)
+                logs.append(log)
+                discovered.add(next)
+                queue.append((next, path + [next], depth + 1))
+        elapsed_time = time.time() - start_time
+    logs.append(f"Search took {elapsed_time} seconds.")
+    print(f"Search took {elapsed_time} seconds.")  # Add a print statement to log the elapsed time
+    logs.append(f"Discovered pages: {len(discovered)}")
+    raise TimeoutErrorWithLogs("Search exceeded time limit.", logs, elapsed_time, len(discovered))
 
 def get_page_text(url):
     response = requests.get(url)
@@ -94,5 +89,3 @@ class TimeoutErrorWithLogs(Exception):
         self.logs = logs
         self.time = time
         self.discovered = discovered
-        
-
