@@ -70,3 +70,27 @@ Our AI-Enhanced Wikipedia Game:
 - Improve the speed of the search via backtracking.
 - Experiment with conversational models of OpenAI (ChatGPT 4.0).
 - Implement other APIs to make fetching information and links faster.
+ 
+
+## API Test
+
+#### Test Python Script for Ranking Topics Based on Similarity Utilizing ChatGPT API
+
+APITest.pi is a Python script that uses the OpenAI API to generate embeddings for a base text and a list of topics. It then ranks these topics based on their similarity to the base text.
+
+#### Requirements
+
+- Python 3.x
+- openai library
+- scipy library
+
+#### Setup
+
+1. **Install Python Packages**: Make sure you have Python installed on your system and then install the required packages using pip:
+
+   ```bash
+   pip install openai scipy
+   ```
+
+2. **API Key**: You need an API key from OpenAI. Please insert your OpenAI Secret Key into the program before running.
+
