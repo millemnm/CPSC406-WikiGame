@@ -9,7 +9,7 @@ Our improved implementation uses  **A\* OpenAI's embedding models** to find simi
 
 ## Presentation Link
 
-https://docs.google.com/presentation/d/1tsm4XntdmyxGCJEWxKKwOspHBl3wSrhLYwKZ5r-2z8U/edit?usp=sharing
+[The presentation about our approach can be found here.](https://github.com/millemnm/CPSC406-WikiGame/blob/main/CPSC406%20-%20WikiGame%20AI.pdf) Please note the program was not fully implemented into the Wikipedia Game when the presentation was given, but APITest.py was complete.
 
 ## Installation
 
