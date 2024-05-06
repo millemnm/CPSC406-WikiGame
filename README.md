@@ -76,7 +76,7 @@ Our AI-Enhanced Wikipedia Game:
 
 #### Test Python Script for Ranking Topics Based on Similarity Utilizing ChatGPT API
 
-APITest.pi is a Python script that uses the OpenAI API to generate embeddings for a base text and a list of topics. It then ranks these topics based on their similarity to the base text.
+APITest.py is a Python script that uses the OpenAI API to generate embeddings for a base text and a list of topics. It then ranks these topics based on their similarity to the base text. This program was used to confirm the approach and create the functions we wanted to implement into The Wikipedia Game.
 
 #### Requirements
 
