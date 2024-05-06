@@ -5,11 +5,15 @@ This project is an extension of a project started by [Alexander Kurz](https://gi
 
 The original project uses a breadth-first search (BFS) algorithm to retrieve links from the current Wikipedia page, storing them in a queue and subsequently navigating through these links to locate the target page. Although this algorithm is designed for finding the shortest path, it can still be improved.
 
-Our improved implementation is using  **A\* OpenAI's embedding models** to find similar articles more efficiently by summarizing Wikipedia titles and article contents through AI. We also employed the **A\*Wikipedia API** instead of webscraping to speed up the retrieval of Wikipedia data.
+Our improved implementation uses  **A\* OpenAI's embedding models** to find similar articles more efficiently by summarizing Wikipedia titles and article contents through AI. We also employed the **A\*Wikipedia API** instead of web scraping to speed up the retrieval of Wikipedia data.
+
+## Presentation Link
+
+https://docs.google.com/presentation/d/1tsm4XntdmyxGCJEWxKKwOspHBl3wSrhLYwKZ5r-2z8U/edit?usp=sharing
 
 ## Installation
 
-(these instructions should work under GNU/Linux and Macos and WSL)
+(these instructions should work under GNU/Linux and macOS and WSL)
 
 Prerequisites: Python
 
@@ -19,23 +23,25 @@ cd CPSC406-WikiGame/WikipediaGame/server
 source setup.sh
 ```
 
+PLEASE INSERT AN OPENAI SECRET KEY INTO crawler.py
+
 Starting the server:
 
 ```
 python server.py
 ```
 
-Play the game on [`localhost:5001`](http://127.0.0.1:5001/) (this link will only work after you started the server on your machine (watch the console in case the port number changed to eg `5002`)).
+Play the game on [`localhost:5001`](http://127.0.0.1:5001/) (this link will only work after you start the server on your machine (watch the console in case the port number changes to, e.g., `5002`)).
 
 ## Testing
 1. Start the server for the original Wikipedia game and this one, ensuring that their ports are different
 2. Visit each link
-3. Leave both the URLs as default (starting page should be Martin Wirsing, ending page should be David Hilbert)
+3. Leave both the URLs as default (the starting page should be Martin Wirsing, and the ending page should be David Hilbert)
 4. Press "Find Path"
 5. Wait until both processes are complete and compare
 
-This version of the Wikipedia game should vastly cut down on the number of pages visited in order to find the end page, at the cost of taking longer to complete the search. Note that the
-search in both versions of the game include random factors, such as how it finds similar links and how embeddings summarizes Wikipedia articles. Results may vary, but should follow the described trend.
+This version of the Wikipedia game should vastly reduce the number of pages visited to find the end page, at the cost of taking longer to complete the search. Note that the
+search in both game versions includes random factors, such as how it finds similar links and how embeddings summarize Wikipedia articles. Results may vary but should follow the described trend.
 
 ### Example output
 
@@ -49,10 +55,10 @@ Our AI-Enhanced Wikipedia Game:
 
 ## Limitations
 
-- The UI works as expected only for chrome-based browsers (Chrome, Brave, ...).
-- Only works for wikipedia pages.
-- Implemented via HTTP requests (no websocket connection between client and server).
-- Users are identified by IP adress (no cookies or sessions).
+- The UI works as expected only for Chrome-based browsers (Chrome, Brave, ...).
+- Only works for Wikipedia pages.
+- Implemented via HTTP requests (no web socket connection between client and server).
+- Users are identified by IP address (no cookies or sessions).
 
 ## Parameters
 
