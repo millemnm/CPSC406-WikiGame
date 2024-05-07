@@ -5,7 +5,7 @@ This project is an extension of a project started by [Alexander Kurz](https://gi
 
 The original project uses a breadth-first search (BFS) algorithm to retrieve links from the current Wikipedia page, storing them in a queue and subsequently navigating through these links to locate the target page. Although this algorithm is designed for finding the shortest path, it can still be improved.
 
-Our improved implementation uses  **A\* OpenAI's embedding models** to find similar articles more efficiently by summarizing Wikipedia titles and article contents through AI. We also employed the **A\*Wikipedia API** instead of web scraping to speed up the retrieval of Wikipedia data.
+Our improved implementation uses  **OpenAI's embedding models** to find similar articles more efficiently by summarizing Wikipedia titles and article contents through AI. We also employed the **Wikipedia API** instead of web scraping to speed up the retrieval of Wikipedia data.
 
 ## Presentation Link
 

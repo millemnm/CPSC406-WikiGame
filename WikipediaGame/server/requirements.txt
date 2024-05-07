@@ -8,3 +8,4 @@ beautifulsoup4==4.9.3
 Flask-Limiter
 openai
 scipy
+Wikipedia-API
