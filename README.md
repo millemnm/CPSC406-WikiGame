@@ -23,7 +23,7 @@ cd CPSC406-WikiGame/WikipediaGame/server
 source setup.sh
 ```
 
-PLEASE INSERT AN OPENAI SECRET KEY INTO crawler.py
+PLEASE INSERT AN OPENAI SECRET KEY INTO WikipediaGame/server/crawler.py, ON LINE 9
 
 Starting the server:
 
@@ -35,16 +35,28 @@ Play the game on [`localhost:5001`](http://127.0.0.1:5001/) (this link will only
 
 ## Testing
 1. Start the server for the original Wikipedia game and this one, ensuring that their ports are different
-2. Visit each link
-3. Leave both the URLs as default (the starting page should be Martin Wirsing, and the ending page should be David Hilbert)
-4. Press "Find Path"
-5. Wait until both processes are complete and compare
+2. Visit each game link
+3. Insert your favorite two Wikipedia articles into Start Page URL and Finish Page URL
+- We tested this with both the default inputs and Leonardo da Vinci and the Laurentian Library. Test results are shown below. 
+5. Press "Find Path"
+6. Wait until both processes are complete and compare
 
 This version of the Wikipedia game should vastly reduce the number of pages visited to find the end page, at the cost of taking longer to complete the search. Note that the
 search in both game versions includes random factors, such as how it finds similar links and how embeddings summarize Wikipedia articles. Results may vary but should follow the described trend.
 
-### Example output
+### Test Results
+Test results were benchmarked by comparing the number of pages visited between versions of the Wikipedia Game, underlined in red in the following screenshots.
+#### TEST #1
 
+Original Wikipedia Game:
+
+<img width="980" alt="Screen Shot 2024-05-17 at 1 48 10 PM" src="https://github.com/millemnm/CPSC406-WikiGame/assets/69368034/b59959e7-afae-4aa6-8a25-f0aec13456ee">
+
+Our AI-Enhanced Wikipedia Game:
+
+<img width="986" alt="Screen Shot 2024-05-17 at 1 47 58 PM" src="https://github.com/millemnm/CPSC406-WikiGame/assets/69368034/3b8222ef-436e-40f0-bc18-9908990a76cb">
+
+#### TEST #2
 Original Wikipedia Game:
 
 <img width="1024" alt="Screen_Shot_2024-05-02_at_7 07 42_PM" src="https://github.com/millemnm/CPSC406-WikiGame/assets/69368034/de3b2e06-99f8-4d35-85ae-df848ea1e5f7">
